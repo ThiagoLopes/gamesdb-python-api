@@ -22,7 +22,7 @@ def get_plataform_id(name: str) -> list:
         if plataforms[2].text.find(nome) == 0:
             js.append({
                 'id': plataforms[0].text,
-                'name_title': plataforms[1].text,
+                'fullname': plataforms[1].text,
                 'name': plataforms[2].text
             })
     return js
@@ -36,15 +36,15 @@ def get_games_plataform(id: int):
 
     for game in xml:
         rows.append({
-            'ID': game[0].text,
-            'Nome': game[1].text,
+            'id': game[0].text,
+            'name': game[1].text,
         })
 
     return sorted(rows, key=itemgetter('Nome'))
 
 
 def write_games_plataform_csv(id: int):
-    header = ['ID', 'Nome']
+    header = ['id', 'name']
     with open('jogos.csv', 'w+') as csvfile:
         file = csv.DictWriter(csvfile, header)
         file.writeheader()
