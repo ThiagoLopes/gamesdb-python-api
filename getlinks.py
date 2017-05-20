@@ -1,9 +1,11 @@
-from operator import itemgetter
-import xml.etree.ElementTree as XML
-import csv
 import json
-import requests
+import csv
+import xml.etree.ElementTree as XML
+from operator import itemgetter
 from xmljson import yahoo
+import requests
+# import sys
+# import getopt
 
 
 def nome_tratado(name: str) -> str:
@@ -40,7 +42,7 @@ def get_games_plataform(id: int):
             'name': game[1].text,
         })
 
-    return sorted(rows, key=itemgetter('Nome'))
+    return sorted(rows, key=itemgetter('name'))
 
 
 def write_games_plataform_csv(id: int):
@@ -61,12 +63,11 @@ def game_detail(id: int, platform: int):
 
 
 if __name__ == '__main__':
-    # ids = get_plataform_id('sony')
-    # print(json.dumps(ids, indent=4))
+    ids = get_plataform_id('sony')
+    print(json.dumps(ids, indent=4))
+    for id in ids:
+        print(id['name'])
 
-    # for id in ids:
-        # print(id['name_title'])
-
-    # write_games_plataform_csv(11)
-
-    game_detail(id=15, platform=11)
+    write_games_plataform_csv(11)
+    xml = game_detail(id=15, platform=11)
+    print(xml)
